@@ -21,7 +21,6 @@ for element in anim_seq.findall('AnimFrame'):
     print(element)
 
 def cut_png():
-    # img = glob.glob('sprite-sheet/sheet.png')
     sheet = Image.open('sprite-sheet/sheet.png')
     width, height = sheet.size
     original_width = width / 7
@@ -33,13 +32,6 @@ def cut_png():
     frames = []
     for element in range(7):
         img = sheet.crop((startX, startY, width, height))
-        # resize_w = original_width * 4
-        # resize_h = original_height * 4
-        # resize_w = int(resize_w)
-        # resize_h = int(resize_h)
-        # img = img.resize((resize_w, resize_h), Image.NEAREST)
-        # name = str(element).zfill(2)
-        # img.save(f'sprite-sheet/output/{name}.png', 'PNG')
         frames.append(img)
         startX += original_width
         width += original_width
