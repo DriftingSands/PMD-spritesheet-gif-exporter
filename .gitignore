@@ -33,3 +33,5 @@ test.css
 __pycache__
 *.sqlite*
 db.*
+
+png_to_gif.*

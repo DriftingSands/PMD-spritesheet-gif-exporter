@@ -21,7 +21,7 @@ def make_gif_import(input_frames, input_frame_duration):
 
     frames[0].save('png_to_gif.webp', format='WebP',
         save_all=True, append_images=frames[1:],
-        duration=17, loop=0,
+        duration=20, loop=0,
         disposal=2,
         # background=(255, 0, 255, 0),
         # version='GIF89a',
