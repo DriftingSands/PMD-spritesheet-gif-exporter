@@ -1,17 +1,16 @@
 from PIL import Image, ImageChops
-import glob
 import xml.etree.ElementTree as ET
 import math
 
-def get_anim_info():
-    tree = ET.parse('sprite-sheet/animations.xml')
+def get_anim_info(animation, direction, directory):
+    tree = ET.parse(f'{directory}animations.xml')
     root = tree.getroot()
     width = int(root.find('FrameWidth').text)
     height = int(root.find('FrameHeight').text)
     anim_group_table = root.find('AnimGroupTable')
     # print('anim group table', anim_group_table)
 
-    anim_index = int(anim_group_table[1][7].text)
+    anim_index = int(anim_group_table[animation][direction].text)
 
     anim_seq_table = root.find('AnimSequenceTable')
     anim_seq = anim_seq_table[anim_index]
@@ -29,12 +28,10 @@ def get_anim_info():
     # print(anim_info)
     return [width, height, anim_info]
 
-def cut_png():
-    sprite_info = get_anim_info()
-    sheet = Image.open('sprite-sheet/sheet.png')
-    print(sheet.width)
+def cut_png(animation, direction, directory):
+    sprite_info = get_anim_info(animation, direction, directory)
+    sheet = Image.open(f'{directory}sheet.png')
     width, height, anim_info = sprite_info
-    print(width, height, anim_info)
     frames = []
     frame_duration = []
     for element in anim_info:
@@ -45,7 +42,6 @@ def cut_png():
         endX = startX + width
         # adjust Y, its hardcoded for now
         startY = remainder * height
-        print(startY)
         endY = startY + height
 
         img = sheet.crop((startX, startY, endX, endY))
